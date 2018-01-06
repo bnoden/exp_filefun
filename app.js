@@ -3,13 +3,14 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
+const morgan = require('morgan');
 
 const mm = ['sheen', 'leto', 'franco'];
 let i = 0;
-mmlen = mm.length;
+let mmlen = mm.length;
 setInterval(() => {
-  i = i < mmlen - 1 ? i + 1 : 0;
   console.log(i + ' ' + mm[i]);
+  i = i + 1 < mmlen ? ++i : 0;
 }, 1000);
 
 app.use((req, res, next) => {
