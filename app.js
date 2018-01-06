@@ -1,9 +1,8 @@
 const express = require('express');
+const morgan = require('morgan');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
-const morgan = require('morgan');
 
 const mm = ['sheen', 'leto', 'franco'];
 let i = 0;
@@ -13,27 +12,10 @@ setInterval(() => {
   i = i + 1 < mmlen ? ++i : 0;
 }, 1000);
 
-app.use((req, res, next) => {
-  console.log('Request IP:', req.url);
-  console.log('Request date:', new Date());
-  next();
-});
+app.use(morgan('short'));
 
-app.use((req, res, next) => {
-  const filePath = path.join(__dirname, 'static', `${mm[i]}.png`);
-  fs.stat(filePath, (err, fileInfo) => {
-    if (err) {
-      next();
-      return;
-    }
-    if (fileInfo.isFile()) {
-      res.sendFile(filePath);
-      console.log(filePath);
-    } else {
-      next();
-    }
-  });
-});
+const staticPath = path.join(__dirname, 'static');
+app.use(express.static(staticPath));
 
 app.use((req, res) => {
   res.status(404);
