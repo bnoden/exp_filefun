@@ -1,0 +1,13 @@
+{
+  "author": "bnoden",
+  "version": "0.0.1",
+  "name": "expfiles",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
+  }
+}
